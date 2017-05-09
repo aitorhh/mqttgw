@@ -43,6 +43,7 @@ docker run \
   -e APPIOT_MQTT_TOPIC_PREFIX=$APPIOT_MQTT_TOPIC_PREFIX \
   -e APPIOT_MQTT_USER=$APPIOT_MQTT_USER \
   -e APPIOT_MQTT_PASSWORD=$APPIOT_MQTT_PASSWORD \
+  --net="host" \
   -d \
   --name "appiot-mqtt-$APPIOT_CONTAINER_NAME" appiot-mqtt
 

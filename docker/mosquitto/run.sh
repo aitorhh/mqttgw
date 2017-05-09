@@ -4,8 +4,8 @@
 # Bind to peristent password file on host
 # -v /host/mosquitto/passwd:/etc/mosquitto/passwd \
 
-sudo docker rm -f mosquitto > /dev/null 2>&1
-sudo docker run \
+docker rm -f mosquitto > /dev/null 2>&1
+docker run \
   -p 1883:1883 \
   -p 9001:9001 \
   -d \
