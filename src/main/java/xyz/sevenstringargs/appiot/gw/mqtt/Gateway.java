@@ -12,17 +12,8 @@ import xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb.Registry;
 import java.util.logging.Logger;
 
 public class Gateway extends DeviceAppIoTListener {
-    private static final String ENV_KEY_APPIOT_REGISTRATION_TICKET = "APPIOT_REGISTRATION_TICKET";
 
-    private static final String ENV_KEY_APPIOT_MQTT_TOPIC_PERFIX = "APPIOT_MQTT_TOPIC_PREFIX";
-    private static final String ENV_KEY_APPIOT_MQTT_URL = "APPIOT_MQTT_URL";
-    private static final String ENV_KEY_APPIOT_MQTT_USER = "APPIOT_MQTT_USER";
-    private static final String ENV_KEY_APPIOT_MQTT_PASSWORD = "APPIOT_MQTT_PASSWORD";
-    private static final String ENV_KEY_APPIOT_MQTT_CLIENT_ID = "APPIOT_MQTT_CLIENT_ID";
-
-    private static final String ENV_KEY_COUCHDB_URL = "APPIOT_COUCHDB_URL";
-    private static final String ENV_KEY_COUCHDB_USER = "APPIOT_COUCHDB_USER";
-    private static final String ENV_KEY_COUCHDB_PASSWORD = "APPIOT_COUCHDB_PASSWORD";
+    // Start Up / Setup Plumbing ---------------------------------------------------------------------------------------
 
     public static void main(String[] args) throws MqttException {
         DeviceManager deviceManager = new DeviceManager();
@@ -52,9 +43,41 @@ public class Gateway extends DeviceAppIoTListener {
         gateway.run();
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // AppIoT Env Keys -------------------------------------------------------------------------------------------------
+
+    private static final String ENV_KEY_APPIOT_REGISTRATION_TICKET = "APPIOT_REGISTRATION_TICKET";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // MQTT Env Keys ---------------------------------------------------------------------------------------------------
+
+    private static final String ENV_KEY_APPIOT_MQTT_TOPIC_PERFIX = "APPIOT_MQTT_TOPIC_PREFIX";
+    private static final String ENV_KEY_APPIOT_MQTT_URL = "APPIOT_MQTT_URL";
+    private static final String ENV_KEY_APPIOT_MQTT_USER = "APPIOT_MQTT_USER";
+    private static final String ENV_KEY_APPIOT_MQTT_PASSWORD = "APPIOT_MQTT_PASSWORD";
+    private static final String ENV_KEY_APPIOT_MQTT_CLIENT_ID = "APPIOT_MQTT_CLIENT_ID";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // CouchDB Env Keys ------------------------------------------------------------------------------------------------
+
+    private static final String ENV_KEY_COUCHDB_URL = "APPIOT_COUCHDB_URL";
+    private static final String ENV_KEY_COUCHDB_USER = "APPIOT_COUCHDB_USER";
+    private static final String ENV_KEY_COUCHDB_PASSWORD = "APPIOT_COUCHDB_PASSWORD";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Gateway ---------------------------------------------------------------------------------------------------------
+
     private final Logger logger = Logger.getLogger(this.getClass().getName());
     private AppIoTGateway appIoTGateway;
     private MqttRelay mqttRelay;
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Constructors ----------------------------------------------------------------------------------------------------
 
     public Gateway(Home home, DeviceRegistry registry, DeviceManager deviceManager, MqttRelay mqttRelay) {
         super(deviceManager);
@@ -64,15 +87,25 @@ public class Gateway extends DeviceAppIoTListener {
         this.mqttRelay = mqttRelay;
     }
 
-    @Override
-    public void onDeviceRegisterRequest(String correlationId, String endpoint, DeviceRegisterRequest deviceRegisterRequest){
-        super.onDeviceRegisterRequest(correlationId, endpoint, deviceRegisterRequest);
-        getDeviceManager().getDevices().forEach(d -> d.getSmartObjects().forEach(s -> s.getResources().forEach(r -> ((ResourceBase)r).requestObserve())));
-    }
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Gateway ---------------------------------------------------------------------------------------------------------
 
     private void run() throws MqttException {
         appIoTGateway.start();
         getDeviceManager().getDevices().forEach(d -> d.getSmartObjects().forEach(s -> s.getResources().forEach(r -> ((ResourceBase)r).requestObserve())));
         mqttRelay.connect();
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // AppIoTDeviceListener --------------------------------------------------------------------------------------------
+
+    @Override
+    public void onDeviceRegisterRequest(String correlationId, String endpoint, DeviceRegisterRequest deviceRegisterRequest){
+        super.onDeviceRegisterRequest(correlationId, endpoint, deviceRegisterRequest);
+        getDeviceManager().getDevices().forEach(d -> d.getSmartObjects().forEach(s -> s.getResources().forEach(r -> ((ResourceBase)r).requestObserve())));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 }

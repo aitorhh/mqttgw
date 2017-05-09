@@ -6,11 +6,18 @@ import java.util.logging.Logger;
 
 
 public class IpsoTopic {
+
+    // Topic constants -------------------------------------------------------------------------------------------------
+
     private static final int TOPIC_PARTS_MIN = 4;
     private static final int TOPIC_ENDPOINT_INDEX_REL = 0;
     private static final int TOPIC_OBJECT_INDEX_REL = 1;
     private static final int TOPIC_INSTANCE_INDEX_REL = 2;
     private static final int TOPIC_RESOURCE_INDEX_REL = 3;
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // IpsoTopic -------------------------------------------------------------------------------------------------------
 
     private static final Logger logger = Logger.getAnonymousLogger();
 
@@ -20,25 +27,9 @@ public class IpsoTopic {
     private int resourceId;
     private Object payload;
 
-    public static IpsoTopic parse(String topic, MqttMessage msg) {
-        String[] topicParts = topic.split("/");
-        if (topicParts.length < TOPIC_PARTS_MIN) {
-            return null;
-        }
+    // -----------------------------------------------------------------------------------------------------------------
 
-        try {
-            int startIndex = topicParts.length - TOPIC_PARTS_MIN;
-            IpsoTopic ipsoTopic = new IpsoTopic();
-            ipsoTopic.setEndpoint(topicParts[startIndex + TOPIC_ENDPOINT_INDEX_REL]);
-            ipsoTopic.setObjectId(Integer.parseInt(topicParts[startIndex + TOPIC_OBJECT_INDEX_REL]));
-            ipsoTopic.setInstanceId(Integer.parseInt(topicParts[startIndex + TOPIC_INSTANCE_INDEX_REL]));
-            ipsoTopic.setResourceId(Integer.parseInt(topicParts[startIndex + TOPIC_RESOURCE_INDEX_REL]));
-            return ipsoTopic;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
+    // Getters & Setters -----------------------------------------------------------------------------------------------
 
     public String getEndpoint() {
         return endpoint;
@@ -80,9 +71,38 @@ public class IpsoTopic {
         this.payload = payload;
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Helper methods --------------------------------------------------------------------------------------------------
+
+    public static IpsoTopic parse(String topic, MqttMessage msg) {
+        String[] topicParts = topic.split("/");
+        if (topicParts.length < TOPIC_PARTS_MIN) {
+            return null;
+        }
+
+        try {
+            int startIndex = topicParts.length - TOPIC_PARTS_MIN;
+            IpsoTopic ipsoTopic = new IpsoTopic();
+            ipsoTopic.setEndpoint(topicParts[startIndex + TOPIC_ENDPOINT_INDEX_REL]);
+            ipsoTopic.setObjectId(Integer.parseInt(topicParts[startIndex + TOPIC_OBJECT_INDEX_REL]));
+            ipsoTopic.setInstanceId(Integer.parseInt(topicParts[startIndex + TOPIC_INSTANCE_INDEX_REL]));
+            ipsoTopic.setResourceId(Integer.parseInt(topicParts[startIndex + TOPIC_RESOURCE_INDEX_REL]));
+            return ipsoTopic;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Object Override -------------------------------------------------------------------------------------------------
+
     @Override
     public String toString() {
         return String.format("%s/%d/%d/%d", getEndpoint(), getObjectId(), getInstanceId(), getResourceId());
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
 }

@@ -6,11 +6,21 @@ import com.google.gson.Gson;
 
 public class Home  extends DefaultHomeDirectory {
 
+    // In-Memory Registration Ticket -----------------------------------------------------------------------------------
+
     private RegistrationTicket registrationTicket;
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Constructors ----------------------------------------------------------------------------------------------------
 
     public Home(String ticket) {
         registrationTicket = new Gson().fromJson(ticket, RegistrationTicket.class);
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Registration Ticket Override ------------------------------------------------------------------------------------
 
     @Override
     public RegistrationTicket getRegistrationTicket() {
@@ -26,4 +36,6 @@ public class Home  extends DefaultHomeDirectory {
     public void saveRegistrationTicket(RegistrationTicket registrationTicket){
         this.registrationTicket = registrationTicket;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 }

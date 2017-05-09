@@ -9,19 +9,30 @@ import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 import java.util.logging.Logger;
 
-public class MqttRelay implements MqttCallback{
+public class MqttRelay implements MqttCallback {
+
+    // MQTT ------------------------------------------------------------------------------------------------------------
 
     private String url;
     private String clientId;
     private String topicPrefix;
     private String user;
     private String password;
-
     private MqttClient client;
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // AppIoT ----------------------------------------------------------------------------------------------------------
+
     private DeviceManager manager;
+
+    // -----------------------------------------------------------------------------------------------------------------
+
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public MqttRelay(DeviceManager manager, String url, String clientId, String topicPrefix, String user, String password){
+    // Constructors ----------------------------------------------------------------------------------------------------
+
+    public MqttRelay(DeviceManager manager, String url, String clientId, String topicPrefix, String user, String password) {
         this.manager = manager;
         this.url = url;
         this.clientId = clientId;
@@ -30,26 +41,18 @@ public class MqttRelay implements MqttCallback{
         this.password = password;
     }
 
-    public MqttRelay(DeviceManager manager, String url, String clientId, String user, String password){
-        this(manager, url, clientId, null, user, password);
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
-    public MqttRelay(DeviceManager manager, String url, String clientId, String topicPrefix){
-        this(manager, url, clientId, topicPrefix, null, null);
-    }
-
-    public MqttRelay(DeviceManager manager, String url, String clientId) {
-        this(manager, url, clientId, null, null, null);
-    }
+    // MQTT ------------------------------------------------------------------------------------------------------------
 
     public void connect() throws MqttException {
         MqttConnectOptions connOpt = new MqttConnectOptions();
 
-        if (user != null && user.length() > 0){
+        if (user != null && user.length() > 0) {
             connOpt.setUserName(user);
         }
 
-        if (password != null && password.length() > 0){
+        if (password != null && password.length() > 0) {
             connOpt.setPassword(password.toCharArray());
         }
 
@@ -61,7 +64,7 @@ public class MqttRelay implements MqttCallback{
         client.connect(connOpt);
 
         String topic = "+/+/+/+";
-        if (topicPrefix != null && topicPrefix.length() > 0){
+        if (topicPrefix != null && topicPrefix.length() > 0) {
             topic = topicPrefix + topic;
         }
 
@@ -69,12 +72,21 @@ public class MqttRelay implements MqttCallback{
     }
 
     @Override
-    public void connectionLost(Throwable throwable) {
-
+    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+        handleMessage(s, mqttMessage);
     }
 
     @Override
-    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+    public void connectionLost(Throwable throwable) {}
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken){}
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // AppIoT ----------------------------------------------------------------------------------------------------------
+
+    private void handleMessage(String s, MqttMessage mqttMessage) {
         IpsoTopic ipsoTopic = IpsoTopic.parse(s, mqttMessage);
         if (ipsoTopic == null) {
             logger.warning(String.format("Failed to parse mqtt message %s -> %s", s, new String(mqttMessage.getPayload())));
@@ -140,8 +152,5 @@ public class MqttRelay implements MqttCallback{
         }
     }
 
-    @Override
-    public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
-
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 }
