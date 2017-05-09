@@ -1,15 +1,12 @@
-package xyz.sevenstringargs.appiot.gw.mqtt;
+package com.ericsson.appiot.examples.gw.mqtt;
 
+import com.ericsson.appiot.examples.gw.deviceregistry.couchdb.Registry;
 import com.ericsson.appiot.gateway.AppIoTGateway;
 import com.ericsson.appiot.gateway.device.DeviceAppIoTListener;
 import com.ericsson.appiot.gateway.device.DeviceManager;
 import com.ericsson.appiot.gateway.device.smartobject.resource.type.ResourceBase;
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistry;
 import com.ericsson.appiot.gateway.dto.DeviceRegisterRequest;
-import org.eclipse.paho.client.mqttv3.*;
-import xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb.Registry;
-
-import java.util.logging.Logger;
 
 public class Gateway extends DeviceAppIoTListener {
 

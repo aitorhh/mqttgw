@@ -1,8 +1,6 @@
-package xyz.sevenstringargs.appiot.gw.mqtt;
+package com.ericsson.appiot.examples.gw.mqtt;
 
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-
-import java.util.logging.Logger;
 
 
 public class IpsoTopic {

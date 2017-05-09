@@ -1,4 +1,4 @@
-package xyz.sevenstringargs.appiot.gw.mqtt;
+package com.ericsson.appiot.examples.gw.mqtt;
 
 import com.ericsson.appiot.gateway.device.Device;
 import com.ericsson.appiot.gateway.device.DeviceManager;
