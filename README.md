@@ -1,8 +1,8 @@
 # AppIoT | MQTT Proxy Gateway
 
-This is an AppIoT soft-gateway that will connect to an MQTT broker and forward the payload to AppIoT based on the devices registered on the gateway. The gateway uses CouchDB as backing storage as its device registry and the project includes instructions for running the database, the Mosquitto broker and the gateway in docker containers. Multiple gateways can use the same CouchDB instance as long as the gateways are registered in the same device network. 
+This is an AppIoT soft-gateway that will connect to an MQTT broker and forward the payload to AppIoT based on the devices registered on the gateway. The gateway uses CouchDB as its device registry and the project includes instructions for running the database, the Mosquitto broker and the gateway in docker containers. Multiple gateways can use the same CouchDB instance as long as the gateways are registered in the same device network. 
 
-The gateway will assume that the topics are formatted like this: ENDPOINT/OBJECT_ID/INSTANCE_ID/RESOURCE_ID.
+The gateway will assume that the topics end with the following parts -> `ENDPOINT/OBJECT_ID/INSTANCE_ID/RESOURCE_ID`.
 There is also an option to add a prefix to the subscribed topic, see config files for more examples.
 The gateway will also assume the payload is in a string format and will try to parse the string to the correct data type based on the IPSO definition.
 
@@ -11,9 +11,9 @@ The gateway will also assume the payload is in a string format and will try to p
 When you've succesfully setup the MQTT gateway you should be able to publish the following on the broker.
 ```
 TOPIC: my-device-endpoint/3303/0/5700
-PAYLOAD: 13.02
+PAYLOAD: 13.00
 ```
-If you have a device registered in AppIoT with the device endpoint of 'my-device-endpoint' with a temperature smart object it should now have the sensor value(5700) of 13.02.
+If you have a device registered in AppIoT with the device endpoint of 'my-device-endpoint' with a temperature(3303) smart object it should now have the sensor value(5700) of 13.00.
 
 ## AppIoT Setup
 
@@ -36,7 +36,7 @@ cd docker/couchdb
 # Run CouchDB. To configure the container see comments in the run.sh file.
 ./run.sh
 ```
-###### Run CouchDB with Docker
+###### Run Mosquitto with Docker
 ```bash
 # Change directory to docker/mosquitto
 cd docker/mosquitto
