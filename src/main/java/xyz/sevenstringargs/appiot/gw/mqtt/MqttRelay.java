@@ -45,7 +45,7 @@ public class MqttRelay implements MqttCallback {
 
     // MQTT ------------------------------------------------------------------------------------------------------------
 
-    public void connect() throws MqttException {
+    public void connect() {
         MqttConnectOptions connOpt = new MqttConnectOptions();
 
         if (user != null && user.length() > 0) {
@@ -59,16 +59,20 @@ public class MqttRelay implements MqttCallback {
         connOpt.setCleanSession(true);
         connOpt.setAutomaticReconnect(true);
 
-        client = new MqttClient(url, clientId, new MemoryPersistence());
-        client.setCallback(this);
-        client.connect(connOpt);
+        try {
+            client = new MqttClient(url, clientId, new MemoryPersistence());
+            client.setCallback(this);
+            client.connect(connOpt);
 
-        String topic = "+/+/+/+";
-        if (topicPrefix != null && topicPrefix.length() > 0) {
-            topic = topicPrefix + topic;
+            String topic = "+/+/+/+";
+            if (topicPrefix != null && topicPrefix.length() > 0) {
+                topic = topicPrefix + topic;
+            }
+
+            client.subscribe(topic);
+        } catch(MqttException e){
+            e.printStackTrace();
         }
-
-        client.subscribe(topic);
     }
 
     @Override

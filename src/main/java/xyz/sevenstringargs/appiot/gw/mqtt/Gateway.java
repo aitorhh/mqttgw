@@ -15,7 +15,7 @@ public class Gateway extends DeviceAppIoTListener {
 
     // Start Up / Setup Plumbing ---------------------------------------------------------------------------------------
 
-    public static void main(String[] args) throws MqttException {
+    public static void main(String[] args) {
         DeviceManager deviceManager = new DeviceManager();
         Home home = new Home(System.getenv(ENV_KEY_APPIOT_REGISTRATION_TICKET));
 
@@ -71,7 +71,6 @@ public class Gateway extends DeviceAppIoTListener {
 
     // Gateway ---------------------------------------------------------------------------------------------------------
 
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
     private AppIoTGateway appIoTGateway;
     private MqttRelay mqttRelay;
 
@@ -91,7 +90,7 @@ public class Gateway extends DeviceAppIoTListener {
 
     // Gateway ---------------------------------------------------------------------------------------------------------
 
-    private void run() throws MqttException {
+    private void run()  {
         appIoTGateway.start();
         getDeviceManager().getDevices().forEach(d -> d.getSmartObjects().forEach(s -> s.getResources().forEach(r -> ((ResourceBase)r).requestObserve())));
         mqttRelay.connect();

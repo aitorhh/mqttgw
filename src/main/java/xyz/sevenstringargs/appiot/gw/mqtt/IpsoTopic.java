@@ -19,8 +19,6 @@ public class IpsoTopic {
 
     // IpsoTopic -------------------------------------------------------------------------------------------------------
 
-    private static final Logger logger = Logger.getAnonymousLogger();
-
     private String endpoint;
     private int objectId;
     private int instanceId;
