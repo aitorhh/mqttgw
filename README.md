@@ -6,12 +6,14 @@ The gateway will assume that the topics are formatted like this: ENDPOINT/OBJECT
 There is also an option to add a prefix to the subscribed topic, see config files for more examples.
 The gateway will also assume the payload is in a string format and will try to parse the string to the correct data type based on the IPSO definition.
 
-When you've succesfully setup the MQTT gateway you should be able to publish the following on the broker -> 
+---
 
+When you've succesfully setup the MQTT gateway you should be able to publish the following on the broker.
+```
 TOPIC: my-device-endpoint/3303/0/5700
 PAYLOAD: 13.02
-
-and if you have a device registered in AppIoT with the device endpoint of 'my-device-endpoint' with a temperature smart object it should now have the sensor value(5700) of 13.02.
+```
+If you have a device registered in AppIoT with the device endpoint of 'my-device-endpoint' with a temperature smart object it should now have the sensor value(5700) of 13.02.
 
 ## AppIoT Setup
 
