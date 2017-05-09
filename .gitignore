@@ -52,8 +52,8 @@ crashlytics-build.properties
 fabric.properties
 
 *.swp
-docker/appiot-owm/config/*
-!docker/appiot-owm/config/example
+docker/appiot-mqtt/config/*
+!docker/appiot-mqtt/config/example
 
 config/*
 !config/example
