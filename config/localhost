@@ -1,0 +1,20 @@
+# Registration ticket in json string format
+export APPIOT_REGISTRATION_TICKET=''
+
+# CouchDB URL, for example: http://localhost:5984
+export APPIOT_COUCHDB_URL='http://localhost:5984'
+
+# If the db uses authentication
+export APPIOT_COUCHDB_USER=''
+export APPIOT_COUCHDB_PASSWORD=''
+
+# Basic MQTT connection information
+export APPIOT_MQTT_URL='tcp://localhost:1883'
+export APPIOT_MQTT_CLIENT_ID='Localhost Client'
+
+# The gateway will listen to <TOPIC_PREFIX>endpoint/objectId/instanceId/resourceId. 
+export APPIOT_MQTT_TOPIC_PREFIX=''
+
+# If the MQTT broker users authentication
+export APPIOT_MQTT_USER=''
+export APPIOT_MQTT_PASSWORD=''

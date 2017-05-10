@@ -56,7 +56,9 @@ target/
 *.swp
 docker/appiot-mqtt/config/*
 !docker/appiot-mqtt/config/example
+!docker/appiot-mqtt/config/localhost
 
 config/*
 !config/example
+!config/localhost
 logs
