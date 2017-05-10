@@ -22,7 +22,7 @@ if [ -z $APPIOT_MQTT_URL ]; then
   exit 1
 fi
 
-if [ -z $APPIOT_MQTT_CLIENT_ID ]; then
+if [[ -z $APPIOT_MQTT_CLIENT_ID ]]; then
   echo 'Missing MQTT Client ID'
   exit 1
 fi
