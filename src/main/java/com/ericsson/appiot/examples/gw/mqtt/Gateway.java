@@ -31,7 +31,7 @@ public class Gateway extends DeviceAppIoTListener {
                 deviceManager,
                 System.getenv(ENV_KEY_APPIOT_MQTT_URL),
                 System.getenv(ENV_KEY_APPIOT_MQTT_CLIENT_ID),
-                System.getenv(ENV_KEY_APPIOT_MQTT_TOPIC_PERFIX),
+                System.getenv(ENV_KEY_APPIOT_MQTT_TOPIC_PREFIX),
                 System.getenv(ENV_KEY_APPIOT_MQTT_USER),
                 System.getenv(ENV_KEY_APPIOT_MQTT_PASSWORD)
         );
@@ -50,7 +50,7 @@ public class Gateway extends DeviceAppIoTListener {
 
     // MQTT Env Keys ---------------------------------------------------------------------------------------------------
 
-    private static final String ENV_KEY_APPIOT_MQTT_TOPIC_PERFIX = "APPIOT_MQTT_TOPIC_PREFIX";
+    private static final String ENV_KEY_APPIOT_MQTT_TOPIC_PREFIX = "APPIOT_MQTT_TOPIC_PREFIX";
     private static final String ENV_KEY_APPIOT_MQTT_URL = "APPIOT_MQTT_URL";
     private static final String ENV_KEY_APPIOT_MQTT_USER = "APPIOT_MQTT_USER";
     private static final String ENV_KEY_APPIOT_MQTT_PASSWORD = "APPIOT_MQTT_PASSWORD";

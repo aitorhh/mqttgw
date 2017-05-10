@@ -15,9 +15,9 @@ export APPIOT_COUCHDB_PASSWORD='<COUCHDB_PASSWORD>'
 export APPIOT_MQTT_URL='<MQTT_URL>'
 export APPIOT_MQTT_CLIENT_ID='<MQTT_CLIENT_ID>'
 
-# The gateway will listen to <TOPIC_PREFIX>endpoint/objectId/instanceId/resourceId. 
+# The gateway will listen to <TOPIC_PREFIX>endpoint/objectId/instanceId/resourceId.
 export APPIOT_MQTT_TOPIC_PREFIX='my/custom/topic/'
 
 # If the MQTT broker users authentication
-export APPIOT_MQTT_USER='<MQTT_USER'
+export APPIOT_MQTT_USER='<MQTT_USER>'
 export APPIOT_MQTT_PASSWORD='<MQTT_PASSWORD>'

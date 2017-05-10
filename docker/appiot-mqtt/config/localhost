@@ -15,7 +15,7 @@ export APPIOT_COUCHDB_PASSWORD=''
 export APPIOT_MQTT_URL='tcp://localhost:1883'
 export APPIOT_MQTT_CLIENT_ID='Localhost Client'
 
-# The gateway will listen to <TOPIC_PREFIX>endpoint/objectId/instanceId/resourceId. 
+# The gateway will listen to <TOPIC_PREFIX>endpoint/objectId/instanceId/resourceId.
 export APPIOT_MQTT_TOPIC_PREFIX=''
 
 # If the MQTT broker users authentication
