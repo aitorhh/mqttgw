@@ -2,17 +2,25 @@ package com.ericsson.appiot.examples.gw.mqtt;
 
 import com.ericsson.appiot.examples.gw.deviceregistry.couchdb.Registry;
 import com.ericsson.appiot.gateway.AppIoTGateway;
+import com.ericsson.appiot.gateway.GatewayException;
+import com.ericsson.appiot.gateway.model.AppIoTModel;
+
 import com.ericsson.appiot.gateway.device.DeviceAppIoTListener;
 import com.ericsson.appiot.gateway.device.DeviceManager;
 import com.ericsson.appiot.gateway.device.smartobject.resource.type.ResourceBase;
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistry;
+
 import com.ericsson.appiot.gateway.dto.DeviceRegisterRequest;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class Gateway extends DeviceAppIoTListener {
 
     // Start Up / Setup Plumbing ---------------------------------------------------------------------------------------
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws com.ericsson.appiot.gateway.GatewayException{
         DeviceManager deviceManager = new DeviceManager();
         Home home = new Home(System.getenv(ENV_KEY_APPIOT_REGISTRATION_TICKET));
 
@@ -41,6 +49,7 @@ public class Gateway extends DeviceAppIoTListener {
     }
 
     // -----------------------------------------------------------------------------------------------------------------
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
 
     // AppIoT Env Keys -------------------------------------------------------------------------------------------------
 
@@ -89,6 +98,19 @@ public class Gateway extends DeviceAppIoTListener {
 
     private void run()  {
         appIoTGateway.start();
+        try {
+
+            appIoTGateway.sendConfigurationRequest();
+            AppIoTModel model = appIoTGateway.getAppIoTModel();
+            logger.log(Level.INFO, String.format("model: %s", model));
+            if(model.getObjectModels().size() == 0) {
+                logger.log(Level.INFO, "No data model present. Requesting from AppIoT.");
+
+                appIoTGateway.sendResourceModelRequest();
+            }
+        } catch (GatewayException e) {
+            logger.log(Level.WARNING, "Failed to request settings or data model.", e);
+        }
         getDeviceManager().getDevices().forEach(d -> d.getSmartObjects().forEach(s -> s.getResources().forEach(r -> ((ResourceBase)r).requestObserve())));
         mqttRelay.connect();
     }
