@@ -106,7 +106,13 @@
         <repository>
             <id>appiot-repo</id>
             <name>AppIoT Nexus Server</name>
-            <url>http://sensation-repo.cloudapp.net:8081/nexus</url>
+            <url>http://sensation-repo.cloudapp.net:8081/nexus/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories>
 </project>
