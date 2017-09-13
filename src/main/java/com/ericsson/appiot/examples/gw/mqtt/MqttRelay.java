@@ -127,7 +127,7 @@ public class MqttRelay implements MqttCallback {
                     ipsoTopic.setPayload(Boolean.parseBoolean(payload));
                     break;
                 case FLOAT:
-                    ipsoTopic.setPayload(Float.parseFloat(payload));
+                    ipsoTopic.setPayload(Double.parseDouble(payload));
                     break;
                 case INTEGER:
                     ipsoTopic.setPayload(Integer.parseInt(payload));
