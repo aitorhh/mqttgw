@@ -1,4 +1,7 @@
 # Registration ticket in json string format
+# Location - Gateway (Select gateway) - Download Tickets
+# The content of the downloaded file should be replaced by <REGISTRATION_TICKET>
+# The contents is like the following (+with data): {"DataCollectorId":"","SecurityToken":"","SecurityTokenUpdate":"","InboxAccessTicket":{"IssuedDateTime":"","ExpireDateTime":"","Namespace":"","IssuerName":"","HttpServiceUri":"","HttpServicePath":"","HttpSas":"","AmqpServiceUri":"","AmqpServicePath":"","AmqpSas":""},"OutboxAccessTicket":{"IssuedDateTime":"","ExpireDateTime":"","Namespace":"","IssuerName":"SendAccessPolicy","HttpServiceUri":"","HttpServicePath":"","HttpSas":"","AmqpServiceUri":"","AmqpServicePath":"","AmqpSas":""},"BlobStorageUri":"","BlobStorageSas":""}
 export APPIOT_REGISTRATION_TICKET='<REGISTRATION_TICKET>'
 
 # CouchDB URL, for example: http://localhost:5984
